@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>João Dalseno — Template Designer & Frontend Developer</title>
+  <meta name="description" content="Premium website templates crafted with modern code. HTML, CSS, React & Tailwind — designed to convert.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=General+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0A0A0B;
+      --bg-elevated: #121214;
+      --bg-card: #161618;
+      --border: #232326;
+      --border-hover: #3A3A3F;
+      --text: #F4F4F5;
+      --text-secondary: #93939B;
+      --text-dim: #5C5C64;
+      --accent: #6EE7B7;
+      --accent-glow: rgba(110,231,183,0.15);
+      --accent-2: #818CF8;
+      --accent-3: #F9A8D4;
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'General Sans', -apple-system, sans-serif;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.2rem 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,10,11,0.75);
+      backdrop-filter: blur(24px) saturate(1.5);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .nav-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.75rem;
+      color: var(--bg);
+    }
+    .nav-name {
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: -0.01em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 400;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-status {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+    .nav-status-dot {
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse-status 2s ease-in-out infinite;
+    }
+    @keyframes pulse-status {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(110,231,183,0.5); }
+      50% { box-shadow: 0 0 0 6px rgba(110,231,183,0); }
+    }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--text); margin: 4px 0; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10rem 5% 5rem;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 500px;
+      background: radial-gradient(ellipse, rgba(110,231,183,0.06) 0%, rgba(129,140,248,0.03) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.35rem 1rem 0.35rem 0.35rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      background: var(--bg-elevated);
+    }
+    .hero-eyebrow-icon {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.55rem; color: var(--bg); font-weight: 700;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 7vw, 6rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+    .hero-stack {
+      display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center;
+    }
+    .stack-tag {
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      background: var(--bg-elevated);
+      transition: all 0.3s;
+    }
+    .stack-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 5%; position: relative; }
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ── TEMPLATES SHOWCASE ── */
+    #templates { padding-top: 3rem; }
+    .templates-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .templates-header .section-desc { margin: 0 auto; }
+
+    .template-showcase {
+      margin-bottom: 6rem;
+    }
+    .template-showcase:last-child { margin-bottom: 0; }
+
+    .template-browser {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.5s;
+      position: relative;
+    }
+    .template-browser:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(110,231,183,0.05);
+    }
+    .browser-bar {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 1.2rem;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+    }
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .browser-dot.r { background: #FF5F57; }
+    .browser-dot.y { background: #FFBD2E; }
+    .browser-dot.g { background: #28CA41; }
+    .browser-url {
+      flex: 1;
+      margin-left: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      background: var(--bg);
+      border-radius: 6px;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-family: var(--font-body);
+    }
+    .browser-content {
+      height: 480px;
+      overflow: hidden;
+      position: relative;
+    }
+    .browser-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transform-origin: top left;
+    }
+    .browser-content-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    /* Template info */
+    .template-info {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: start;
+      padding-top: 2rem;
+    }
+    .template-meta {}
+    .template-number {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+    .template-name {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+    }
+    .template-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 1.2rem;
+    }
+    .template-tags {
+      display: flex; gap: 0.4rem; flex-wrap: wrap;
+    }
+    .template-tag {
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--text-dim);
+    }
+    .template-tag.accent-1 { border-color: rgba(110,231,183,0.25); color: var(--accent); }
+    .template-tag.accent-2 { border-color: rgba(129,140,248,0.25); color: var(--accent-2); }
+    .template-tag.accent-3 { border-color: rgba(249,168,212,0.25); color: var(--accent-3); }
+
+    .template-pricing {
+      text-align: right;
+    }
+    .template-price {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--accent);
+    }
+    .template-price-note {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      margin-top: 0.2rem;
+    }
+
+    /* ── ABOUT ME ── */
+    .about-section {
+      border-top: 1px solid var(--border);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      margin-top: 3rem;
+      align-items: center;
+    }
+    .about-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3rem;
+    }
+    .about-avatar-lg {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--bg);
+      margin-bottom: 1.5rem;
+    }
+    .about-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .about-card h3 em { color: var(--accent); }
+    .about-card p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 0.8rem;
+    }
+    .about-links {
+      margin-top: 1.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .about-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .about-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .about-stat-card {
+      padding: 2rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: all 0.3s;
+    }
+    .about-stat-card:hover { border-color: var(--border-hover); }
+    .about-stat-number {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .about-stat-number.c1 { color: var(--accent); }
+    .about-stat-number.c2 { color: var(--accent-2); }
+    .about-stat-number.c3 { color: var(--accent-3); }
+    .about-stat-label {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    /* ── WHAT'S INCLUDED ── */
+    .included-section {
+      border-top: 1px solid var(--border);
+    }
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .included-card {
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: all 0.35s;
+    }
+    .included-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+    }
+    .included-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .included-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .included-card p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 7rem 5%;
+    }
+    .cta-section .section-title { margin: 0 auto 1rem; max-width: 600px; }
+    .cta-section .section-desc { margin: 0 auto 2.5rem; }
+    .cta-btn {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s;
+      letter-spacing: -0.01em;
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(110,231,183,0.2); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── SCROLL PROGRESS ── */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--gradient-main);
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+      z-index: 200;
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .included-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-status { display: none; }
+      .hamburger { display: block; }
+      .hero { padding: 8rem 5% 3rem; min-height: auto; }
+      .browser-content { height: 300px; }
+      .template-info { grid-template-columns: 1fr; gap: 1rem; }
+      .template-pricing { text-align: left; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .included-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">
+      <div class="nav-avatar">JD</div>
+      <span class="nav-name">João Dalseno</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#templates">Templates</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#included">What's Included</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      Available for projects
+    </div>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-icon">✦</div>
+      Premium Website Templates
+    </div>
+    <h1>Crafting digital<br>experiences that <em>convert</em></h1>
+    <p class="hero-sub">Hand-coded, responsive website templates built with modern tech. Each template is a production-ready starting point for your next project.</p>
+    <div class="hero-stack">
+      <span class="stack-tag">HTML5</span>
+      <span class="stack-tag">CSS3</span>
+      <span class="stack-tag">JavaScript</span>
+      <span class="stack-tag">Responsive</span>
+      <span class="stack-tag">SEO Ready</span>
+      <span class="stack-tag">Google Fonts</span>
+      <span class="stack-tag">Animations</span>
+    </div>
+  </section>
+
+  <!-- TEMPLATES -->
+  <section id="templates">
+    <div class="templates-header">
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">Template Collection</h2>
+      <p class="section-desc">Each template is meticulously designed for a specific niche, with clean code and attention to every detail.</p>
+    </div>
+
+    <!-- Template 1 -->
+    <div class="template-showcase reveal">
+      <div class="template-browser">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <div class="browser-dot r"></div>
+            <div class="browser-dot y"></div>
+            <div class="browser-dot g"></div>
+          </div>
+          <div class="browser-url">moreira-associados.com</div>
+        </div>
+        <div class="browser-content" style="background: #0C0E0D;">
+          <div class="browser-content-overlay" title="Law Firm Template Preview"></div>
+          <iframe src="template-1-escritorio-advocacia.html" loading="lazy" sandbox="allow-scripts" title="Law Firm Template"></iframe>
+        </div>
+      </div>
+      <div class="template-info">
+        <div class="template-meta">
+          <div class="template-number">01 / 03</div>
+          <h3 class="template-name">Law Firm — Luxury Editorial</h3>
+          <p class="template-desc">Elegant dark-mode landing page designed for law firms, consultancies, and professional services. Features gold accents, refined typography, scroll animations, and a sophisticated layout that conveys trust and expertise.</p>
+          <div class="template-tags">
+            <span class="template-tag accent-1">Dark Mode</span>
+            <span class="template-tag">Law Firm</span>
+            <span class="template-tag">Consulting</span>
+            <span class="template-tag">Scroll Animations</span>
+            <span class="template-tag">Responsive</span>
+          </div>
+        </div>
+        <div class="template-pricing">
+          <div class="template-price">$29</div>
+          <div class="template-price-note">Single license</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Template 2 -->
+    <div class="template-showcase reveal">
+      <div class="template-browser">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <div class="browser-dot r"></div>
+            <div class="browser-dot y"></div>
+            <div class="browser-dot g"></div>
+          </div>
+          <div class="browser-url">olivabistro.com.br</div>
+        </div>
+        <div class="browser-content" style="background: #FAF6F0;">
+          <div class="browser-content-overlay" title="Restaurant Template Preview"></div>
+          <iframe src="template-2-restaurante-bistro.html" loading="lazy" sandbox="allow-scripts" title="Restaurant Template"></iframe>
+        </div>
+      </div>
+      <div class="template-info">
+        <div class="template-meta">
+          <div class="template-number">02 / 03</div>
+          <h3 class="template-name">Restaurant — Warm Organic</h3>
+          <p class="template-desc">Inviting landing page with terracotta and cream tones, crafted for restaurants, cafés, and bistros. Includes interactive menu tabs, reservation form, gallery section, and smooth transitions throughout.</p>
+          <div class="template-tags">
+            <span class="template-tag accent-3">Light Theme</span>
+            <span class="template-tag">Restaurant</span>
+            <span class="template-tag">Café</span>
+            <span class="template-tag">Menu & Reservation</span>
+            <span class="template-tag">Responsive</span>
+          </div>
+        </div>
+        <div class="template-pricing">
+          <div class="template-price">$29</div>
+          <div class="template-price-note">Single license</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Template 3 -->
+    <div class="template-showcase reveal">
+      <div class="template-browser">
+        <div class="browser-bar">
+          <div class="browser-dots">
+            <div class="browser-dot r"></div>
+            <div class="browser-dot y"></div>
+            <div class="browser-dot g"></div>
+          </div>
+          <div class="browser-url">nexusdigital.com.br</div>
+        </div>
+        <div class="browser-content" style="background: #09090B;">
+          <div class="browser-content-overlay" title="Agency Template Preview"></div>
+          <iframe src="template-3-agencia-digital-v2.html" loading="lazy" sandbox="allow-scripts" title="Agency Template"></iframe>
+        </div>
+      </div>
+      <div class="template-info">
+        <div class="template-meta">
+          <div class="template-number">03 / 03</div>
+          <h3 class="template-name">Digital Agency — Bold Futuristic</h3>
+          <p class="template-desc">High-impact dark landing page with animated SVG robot, particle system, matrix rain, floating code snippets, and a terminal HUD. Built for digital agencies, startups, and tech companies that want to stand out.</p>
+          <div class="template-tags">
+            <span class="template-tag accent-2">Animated</span>
+            <span class="template-tag">Agency</span>
+            <span class="template-tag">Startup</span>
+            <span class="template-tag">SVG Robot</span>
+            <span class="template-tag">Particles</span>
+            <span class="template-tag">Responsive</span>
+          </div>
+        </div>
+        <div class="template-pricing">
+          <div class="template-price">$35</div>
+          <div class="template-price-note">Single license</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="section-label">About</div>
+    <h2 class="section-title">The developer behind<br>these templates</h2>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <div class="about-avatar-lg">JD</div>
+        <h3>João Vitor <em>Dalseno</em></h3>
+        <p>Frontend developer and software engineering student from São Paulo, Brazil. I build clean, modern, production-ready templates that help businesses launch faster.</p>
+        <p>Each template is hand-coded — no page builders, no bloated frameworks. Just clean HTML, CSS, and JavaScript that loads fast and looks great on every device.</p>
+        <div class="about-links">
+          <a href="https://github.com/JoaoVD" class="about-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="mailto:contato@joaodalseno.com" class="about-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+      <div class="about-stats">
+        <div class="about-stat-card reveal reveal-delay-1">
+          <span class="about-stat-number c1">3+</span>
+          <span class="about-stat-label">Premium Templates</span>
+        </div>
+        <div class="about-stat-card reveal reveal-delay-2">
+          <span class="about-stat-number c2">100%</span>
+          <span class="about-stat-label">Hand-Coded</span>
+        </div>
+        <div class="about-stat-card reveal reveal-delay-3">
+          <span class="about-stat-number c3">3</span>
+          <span class="about-stat-label">Unique Aesthetics</span>
+        </div>
+        <div class="about-stat-card reveal">
+          <span class="about-stat-number">∞</span>
+          <span class="about-stat-label">Attention to Detail</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED -->
+  <section class="included-section" id="included">
+    <div class="section-label">What's Included</div>
+    <h2 class="section-title">Every template comes with</h2>
+    <div class="included-grid">
+      <div class="included-card reveal">
+        <div class="included-icon">📱</div>
+        <h3>Fully Responsive</h3>
+        <p>Pixel-perfect on desktop, tablet, and mobile. Tested across all major browsers.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-1">
+        <div class="included-icon">⚡</div>
+        <h3>Fast & Lightweight</h3>
+        <p>No dependencies or bloated frameworks. Pure HTML, CSS, and vanilla JS for maximum performance.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-2">
+        <div class="included-icon">🎨</div>
+        <h3>Easy to Customize</h3>
+        <p>CSS variables for colors and fonts. Clean, commented code that's simple to modify.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-3">
+        <div class="included-icon">✨</div>
+        <h3>Smooth Animations</h3>
+        <p>Scroll-triggered reveals, hover effects, and micro-interactions built in.</p>
+      </div>
+      <div class="included-card reveal">
+        <div class="included-icon">🔍</div>
+        <h3>SEO Ready</h3>
+        <p>Semantic HTML, meta tags, and optimized structure for search engine visibility.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-1">
+        <div class="included-icon">🇧🇷</div>
+        <h3>Portuguese Content</h3>
+        <p>All templates come with realistic Brazilian Portuguese content, ready to deploy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title">Interested in a template<br>or custom project?</h2>
+    <p class="section-desc" style="margin:0 auto 2.5rem;">I'm available for custom template work, full website builds, and ongoing collaborations. Let's create something great together.</p>
+    <a href="mailto:contato@joaodalseno.com" class="cta-btn">Get in Touch →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 João Dalseno. All rights reserved.</span>
+    <span>Built with precision & <a href="#">☕</a></span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      document.getElementById('scrollProgress').style.width = progress + '%';
+    });
+  </script>
+</body>
+</html>

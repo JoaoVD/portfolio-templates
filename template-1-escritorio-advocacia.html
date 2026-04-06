@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moreira & Associados — Advocacia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-bg: #0C0E0D;
+      --color-bg-alt: #141716;
+      --color-surface: #1A1D1C;
+      --color-gold: #C9A96E;
+      --color-gold-light: #D4BC8E;
+      --color-text: #E8E4DF;
+      --color-text-muted: #9A968F;
+      --color-border: #2A2D2C;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Libre Franklin', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      padding: 1.5rem 4%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(12,14,13,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,169,110,0.08);
+      transition: all 0.4s;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--color-gold);
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--color-text-muted); font-weight: 400; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-gold);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--color-gold); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      padding: 0.65rem 1.8rem;
+      border: 1px solid var(--color-gold);
+      color: var(--color-gold);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .nav-cta:hover {
+      background: var(--color-gold);
+      color: var(--color-bg);
+    }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 5px; }
+    .hamburger span { width: 24px; height: 1.5px; background: var(--color-gold); transition: all 0.3s; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 4% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 55%; height: 100%;
+      background: linear-gradient(135deg, rgba(201,169,110,0.03) 0%, rgba(201,169,110,0.08) 50%, transparent 100%);
+      clip-path: polygon(30% 0, 100% 0, 100% 100%, 0% 100%);
+    }
+    .hero::after {
+      content: '';
+      position: absolute; top: 50%; right: 8%;
+      width: 320px; height: 320px;
+      border: 1px solid rgba(201,169,110,0.1);
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+    .hero-content { max-width: 720px; position: relative; z-index: 2; }
+    .hero-tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--color-gold);
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 2rem;
+      color: var(--color-text);
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--color-gold);
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--color-text-muted);
+      max-width: 520px;
+      margin-bottom: 3rem;
+      line-height: 1.85;
+    }
+    .hero-actions { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      background: var(--color-gold);
+      color: var(--color-bg);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .btn-primary:hover { background: var(--color-gold-light); transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .btn-secondary:hover { color: var(--color-gold); }
+    .btn-secondary svg { transition: transform 0.3s; }
+    .btn-secondary:hover svg { transform: translateX(4px); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .stat-item {
+      padding: 3rem 4%;
+      text-align: center;
+      border-right: 1px solid var(--color-border);
+      transition: background 0.4s;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-item:hover { background: var(--color-bg-alt); }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 400;
+      color: var(--color-gold);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 7rem 4%; }
+    .section-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-tag::before {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--color-gold);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      max-width: 560px;
+      line-height: 1.8;
+    }
+
+    /* ── AREAS ── */
+    .areas { background: var(--color-bg-alt); }
+    .areas-header { margin-bottom: 4rem; }
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--color-border);
+    }
+    .area-card {
+      background: var(--color-bg-alt);
+      padding: 3rem 2.5rem;
+      transition: all 0.4s;
+      position: relative;
+      cursor: pointer;
+    }
+    .area-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--color-gold);
+      transition: width 0.4s;
+    }
+    .area-card:hover { background: var(--color-surface); }
+    .area-card:hover::after { width: 100%; }
+    .area-icon {
+      width: 48px; height: 48px;
+      border: 1px solid var(--color-gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.8rem;
+      color: var(--color-gold);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+    .area-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .area-card p {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.75;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      margin-top: 4rem;
+    }
+    .about-image {
+      aspect-ratio: 3/4;
+      background: linear-gradient(145deg, var(--color-surface) 0%, var(--color-bg-alt) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-image::before {
+      content: 'MOREIRA & ASSOCIADOS';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.3em;
+      color: rgba(201,169,110,0.15);
+      white-space: nowrap;
+    }
+    .about-image::after {
+      content: '';
+      position: absolute; bottom: -20px; right: -20px;
+      width: 140px; height: 140px;
+      border: 1px solid rgba(201,169,110,0.2);
+    }
+    .about-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+    .about-text h3 em { color: var(--color-gold); }
+    .about-text p {
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.85;
+    }
+    .about-signature {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-border);
+    }
+    .about-signature strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--color-text);
+    }
+    .about-signature span {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--color-bg-alt); }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .testimonial-card {
+      padding: 3rem;
+      border: 1px solid var(--color-border);
+      background: var(--color-bg);
+      transition: border-color 0.3s;
+    }
+    .testimonial-card:hover { border-color: rgba(201,169,110,0.3); }
+    .testimonial-quote {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      color: var(--color-gold);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .testimonial-card p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      font-style: italic;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .testimonial-author strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--color-text);
+      font-style: normal;
+    }
+    .testimonial-author span {
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+      font-style: normal;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center;
+      padding: 8rem 4%;
+      position: relative;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--color-gold));
+    }
+    .cta-section .section-tag { justify-content: center; }
+    .cta-section .section-tag::before { display: none; }
+    .cta-section .section-title { margin: 0 auto 1.5rem; }
+    .cta-section .section-subtitle { margin: 0 auto 3rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 4rem 4% 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--color-gold);
+      margin-bottom: 1rem;
+    }
+    .footer-desc {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      line-height: 1.75;
+      max-width: 320px;
+    }
+    .footer-col h4 {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.8rem; }
+    .footer-col a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--color-gold); }
+    .footer-bottom {
+      border-top: 1px solid var(--color-border);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .areas-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { gap: 3rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 5%; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 7rem 5% 3rem; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .areas-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-image { aspect-ratio: 16/9; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Moreira <span>& Associados</span></div>
+    <ul class="nav-links">
+      <li><a href="#areas">Áreas</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a href="#contato" class="nav-cta">Agende uma Consulta</a>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">Advocacia de Excelência</div>
+      <h1>Tradição e<br><em>competência</em> na<br>defesa dos seus direitos</h1>
+      <p>Há mais de 20 anos atuando com rigor técnico, ética e dedicação integral a cada causa. Sua segurança jurídica é a nossa prioridade.</p>
+      <div class="hero-actions">
+        <a href="#contato" class="btn-primary">Fale Conosco</a>
+        <a href="#areas" class="btn-secondary">
+          Conheça nossas áreas
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item fade-up">
+      <span class="stat-number">20+</span>
+      <span class="stat-label">Anos de Atuação</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-number">2.500+</span>
+      <span class="stat-label">Causas Atendidas</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-number">98%</span>
+      <span class="stat-label">Clientes Satisfeitos</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-number">15</span>
+      <span class="stat-label">Advogados Especialistas</span>
+    </div>
+  </div>
+
+  <!-- ÁREAS -->
+  <section class="areas" id="areas">
+    <div class="areas-header">
+      <div class="section-tag">Áreas de Atuação</div>
+      <h2 class="section-title">Expertise jurídica em<br>múltiplas frentes</h2>
+      <p class="section-subtitle">Atuamos com profundidade nas áreas mais complexas do Direito, sempre com foco em resultados concretos para nossos clientes.</p>
+    </div>
+    <div class="areas-grid">
+      <div class="area-card fade-up">
+        <div class="area-icon">Cv</div>
+        <h3>Direito Civil</h3>
+        <p>Contratos, responsabilidade civil, direito de família e sucessões com abordagem estratégica e personalizada.</p>
+      </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">Tb</div>
+        <h3>Direito Trabalhista</h3>
+        <p>Defesa de empresas e empregados em todas as instâncias, com expertise em litígios complexos e negociações.</p>
+      </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">Tr</div>
+        <h3>Direito Tributário</h3>
+        <p>Planejamento tributário, defesas administrativas e judiciais, recuperação de créditos e consultoria fiscal.</p>
+      </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">Em</div>
+        <h3>Direito Empresarial</h3>
+        <p>Constituição de empresas, M&A, governança corporativa, contratos comerciais e recuperação judicial.</p>
+      </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">Im</div>
+        <h3>Direito Imobiliário</h3>
+        <p>Transações imobiliárias, regularização fundiária, incorporações e assessoria em empreendimentos.</p>
+      </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">Dg</div>
+        <h3>Direito Digital</h3>
+        <p>LGPD, proteção de dados, crimes cibernéticos e assessoria jurídica para empresas de tecnologia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="section-tag">Sobre o Escritório</div>
+    <h2 class="section-title">Uma história construída<br>com confiança</h2>
+    <div class="about-grid">
+      <div class="about-image fade-up"></div>
+      <div class="about-text fade-up">
+        <h3>Compromisso com a <em>excelência</em> desde o primeiro dia</h3>
+        <p>Fundado em 2003, o escritório Moreira & Associados nasceu com a missão de oferecer advocacia de alto nível, com atendimento próximo e soluções jurídicas sob medida.</p>
+        <p>Nossa equipe é formada por profissionais com sólida formação acadêmica e vasta experiência prática, garantindo a melhor estratégia para cada caso.</p>
+        <p>Acreditamos que a advocacia de qualidade se constrói com dedicação, transparência e resultados concretos.</p>
+        <div class="about-signature">
+          <strong>Dr. Ricardo Moreira</strong>
+          <span>Sócio-Fundador · OAB/SP 123.456</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="testimonials" id="depoimentos">
+    <div class="section-tag">Depoimentos</div>
+    <h2 class="section-title">O que nossos clientes dizem</h2>
+    <p class="section-subtitle">A confiança de quem já foi atendido pelo nosso escritório.</p>
+    <div class="testimonial-grid">
+      <div class="testimonial-card fade-up">
+        <div class="testimonial-quote">"</div>
+        <p>Profissionalismo impecável. Desde o primeiro atendimento me senti acolhido e seguro. O resultado superou todas as minhas expectativas.</p>
+        <div class="testimonial-author">
+          <strong>Carlos Eduardo Mendes</strong>
+          <span>Empresário — São Paulo</span>
+        </div>
+      </div>
+      <div class="testimonial-card fade-up">
+        <div class="testimonial-quote">"</div>
+        <p>Em um momento difícil, a equipe do escritório foi fundamental. Transparência, agilidade e um resultado que mudou minha vida.</p>
+        <div class="testimonial-author">
+          <strong>Mariana Costa Ribeiro</strong>
+          <span>Médica — Ribeirão Preto</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contato">
+    <div class="section-tag">Entre em Contato</div>
+    <h2 class="section-title">Precisa de orientação<br>jurídica?</h2>
+    <p class="section-subtitle">Agende uma consulta com nossa equipe. A primeira conversa é sem compromisso — estamos prontos para ouvir você.</p>
+    <a href="https://wa.me/5500000000000" class="btn-primary">Agendar Consulta Gratuita</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Moreira & Associados</div>
+        <p class="footer-desc">Advocacia de excelência com mais de duas décadas de tradição e compromisso com nossos clientes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Escritório</h4>
+        <ul>
+          <li><a href="#">Áreas de Atuação</a></li>
+          <li><a href="#">Nossa Equipe</a></li>
+          <li><a href="#">Blog Jurídico</a></li>
+          <li><a href="#">Carreiras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="#">(16) 3456-7890</a></li>
+          <li><a href="#"><span class="__cf_email__" data-cfemail="04676b6a7065706b44696b76616d76652a6560722a6676">[email&#160;protected]</span></a></li>
+          <li><a href="#">Rua Exemplo, 123</a></li>
+          <li><a href="#">Ribeirão Preto — SP</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social</h4>
+        <ul>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Moreira & Associados. Todos os direitos reservados.</span>
+      <span>OAB/SP 123.456</span>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+  

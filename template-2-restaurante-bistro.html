@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oliva — Restaurante & Bistrô</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --color-cream: #FAF6F0;
+      --color-cream-dark: #F0EBE3;
+      --color-terracotta: #B85C38;
+      --color-terracotta-light: #D4825E;
+      --color-olive: #5C6B4F;
+      --color-olive-dark: #3D4A33;
+      --color-charcoal: #2C2C2C;
+      --color-charcoal-light: #4A4A4A;
+      --color-warm-gray: #8C8478;
+      --font-display: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Outfit', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-cream);
+      color: var(--color-charcoal);
+      line-height: 1.7;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.4rem 4%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(250,246,240,0.9);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--color-charcoal);
+    }
+    .nav-logo em { color: var(--color-terracotta); font-style: italic; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--color-charcoal-light);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--color-terracotta); }
+    .nav-cta {
+      padding: 0.6rem 1.6rem;
+      background: var(--color-terracotta);
+      color: white;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border-radius: 100px;
+      letter-spacing: 0.03em;
+      transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--color-terracotta-light); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 5px; }
+    .hamburger span { width: 22px; height: 2px; background: var(--color-charcoal); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding-top: 5rem;
+    }
+    .hero-text {
+      padding: 4rem 4% 4rem 6%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.4rem 1rem;
+      background: rgba(92,107,79,0.1);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-olive);
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--color-olive);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      color: var(--color-charcoal);
+    }
+    .hero h1 em {
+      color: var(--color-terracotta);
+      font-style: italic;
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--color-warm-gray);
+      max-width: 440px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-filled {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: var(--color-terracotta);
+      color: white;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-radius: 100px;
+      transition: all 0.3s;
+      letter-spacing: 0.02em;
+    }
+    .btn-filled:hover { background: var(--color-terracotta-light); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(184,92,56,0.2); }
+    .btn-outline {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      border: 1.5px solid var(--color-charcoal);
+      color: var(--color-charcoal);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      border-radius: 100px;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { background: var(--color-charcoal); color: var(--color-cream); }
+    .hero-image {
+      height: 100vh;
+      background: linear-gradient(135deg, var(--color-cream-dark) 0%, #E8DED1 50%, var(--color-cream-dark) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image::before {
+      content: '🫒';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 8rem;
+      opacity: 0.15;
+    }
+    .hero-image-badge {
+      position: absolute; bottom: 3rem; left: 3rem;
+      background: white;
+      padding: 1.2rem 1.8rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    }
+    .hero-image-badge .stars { color: var(--color-terracotta); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 0.3rem; }
+    .hero-image-badge p { font-size: 0.8rem; color: var(--color-warm-gray); font-weight: 400; }
+    .hero-image-badge strong { color: var(--color-charcoal); font-weight: 600; }
+
+    /* ── FEATURES ── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .feature-item {
+      padding: 3.5rem 3rem;
+      text-align: center;
+      border-right: 1px solid rgba(0,0,0,0.07);
+      transition: background 0.3s;
+    }
+    .feature-item:last-child { border-right: none; }
+    .feature-item:hover { background: var(--color-cream-dark); }
+    .feature-emoji { font-size: 2.5rem; margin-bottom: 1.2rem; display: block; }
+    .feature-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin-bottom: 0.7rem;
+      color: var(--color-charcoal);
+    }
+    .feature-item p {
+      font-size: 0.88rem;
+      color: var(--color-warm-gray);
+      line-height: 1.7;
+    }
+
+    /* ── MENU ── */
+    .menu-section {
+      padding: 7rem 4%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .menu-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .menu-header .section-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-terracotta);
+      margin-bottom: 1rem;
+    }
+    .menu-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+    }
+    .menu-tabs {
+      display: flex; justify-content: center; gap: 0.5rem;
+      margin-bottom: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .menu-tab {
+      padding: 0.6rem 1.6rem;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--color-charcoal-light);
+      cursor: pointer;
+      background: none;
+      font-family: var(--font-body);
+      transition: all 0.3s;
+    }
+    .menu-tab:hover, .menu-tab.active {
+      background: var(--color-charcoal);
+      color: white;
+      border-color: var(--color-charcoal);
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .menu-item {
+      padding: 1.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: background 0.3s;
+    }
+    .menu-item:hover { background: var(--color-cream-dark); }
+    .menu-item:nth-child(odd) { border-right: 1px solid rgba(0,0,0,0.06); }
+    .menu-item-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+    .menu-item-desc {
+      font-size: 0.82rem;
+      color: var(--color-warm-gray);
+      line-height: 1.6;
+    }
+    .menu-item-price {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--color-terracotta);
+      white-space: nowrap;
+      margin-left: 1.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-section {
+      background: var(--color-olive-dark);
+      color: white;
+      padding: 7rem 4%;
+    }
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-image-wrap {
+      aspect-ratio: 4/5;
+      background: rgba(255,255,255,0.06);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-image-wrap::before {
+      content: '🍷';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      opacity: 0.2;
+    }
+    .about-content .section-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-terracotta-light);
+      margin-bottom: 1rem;
+    }
+    .about-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    .about-content h2 em { color: var(--color-terracotta-light); font-style: italic; }
+    .about-content p {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.95rem;
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+    .about-detail {
+      display: flex; gap: 2.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .about-detail-item span {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--color-terracotta-light);
+      margin-bottom: 0.3rem;
+    }
+    .about-detail-item p {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin: 0;
+    }
+
+    /* ── GALLERY ── */
+    .gallery-section {
+      padding: 7rem 4%;
+      text-align: center;
+    }
+    .gallery-header {
+      margin-bottom: 3rem;
+    }
+    .gallery-header .section-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-terracotta);
+      margin-bottom: 1rem;
+    }
+    .gallery-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      aspect-ratio: 1;
+      background: var(--color-cream-dark);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover { transform: scale(1.03); }
+    .gallery-item:nth-child(1) { background: linear-gradient(135deg, #E8DED1, #D4C5B0); }
+    .gallery-item:nth-child(2) { background: linear-gradient(135deg, #D4C5B0, #C4AE94); }
+    .gallery-item:nth-child(3) { background: linear-gradient(135deg, #C4AE94, #B89A7E); grid-row: span 2; aspect-ratio: auto; }
+    .gallery-item:nth-child(4) { background: linear-gradient(135deg, #E2D8CC, #D0C4B4); }
+    .gallery-item:nth-child(5) { background: linear-gradient(135deg, #DDD3C5, #CEC2B2); }
+    .gallery-item-label {
+      position: absolute; bottom: 1rem; left: 1rem;
+      background: white;
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--color-charcoal);
+    }
+
+    /* ── RESERVATION CTA ── */
+    .reservation-section {
+      background: var(--color-cream-dark);
+      padding: 6rem 4%;
+      text-align: center;
+    }
+    .reservation-inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .reservation-inner .section-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-terracotta);
+      margin-bottom: 1rem;
+    }
+    .reservation-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      margin-bottom: 1rem;
+    }
+    .reservation-inner h2 em { color: var(--color-terracotta); font-style: italic; }
+    .reservation-inner > p {
+      color: var(--color-warm-gray);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+    .reservation-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .reservation-form input, .reservation-form select {
+      padding: 0.9rem 1.2rem;
+      border: 1.5px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      background: white;
+      color: var(--color-charcoal);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .reservation-form input:focus, .reservation-form select:focus {
+      border-color: var(--color-terracotta);
+    }
+    .reservation-form input::placeholder { color: var(--color-warm-gray); }
+    .reservation-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--color-terracotta);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      letter-spacing: 0.03em;
+    }
+    .reservation-submit:hover { background: var(--color-terracotta-light); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--color-charcoal);
+      color: white;
+      padding: 4rem 4% 2rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .footer-brand em { color: var(--color-terracotta-light); font-style: italic; }
+    .footer-brand-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      max-width: 320px;
+    }
+    .footer-col h4 {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 1.3rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.7rem; }
+    .footer-col a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--color-terracotta-light); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(3) { grid-row: span 1; aspect-ratio: 1; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-text { padding: 7rem 5% 3rem; }
+      .hero-image { height: 50vh; }
+      .features { grid-template-columns: 1fr; }
+      .feature-item { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.07); }
+      .menu-grid { grid-template-columns: 1fr; }
+      .menu-item:nth-child(odd) { border-right: none; }
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-image-wrap { aspect-ratio: 16/9; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .reservation-form { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo"><em>Oliva</em> Bistrô</div>
+    <ul class="nav-links">
+      <li><a href="#cardapio">Cardápio</a></li>
+      <li><a href="#sobre">Nossa História</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#reservas">Reservas</a></li>
+    </ul>
+    <a href="#reservas" class="nav-cta">Reserve sua Mesa</a>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-badge">Aberto de Terça a Domingo</div>
+      <h1>Onde cada prato conta uma <em>história</em></h1>
+      <p>Cozinha autoral com ingredientes frescos, selecionados diariamente. Uma experiência gastronômica que celebra a simplicidade e o sabor.</p>
+      <div class="hero-actions">
+        <a href="#reservas" class="btn-filled">Reservar Mesa</a>
+        <a href="#cardapio" class="btn-outline">Ver Cardápio</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-image-badge">
+        <div class="stars">★★★★★</div>
+        <p><strong>4.9</strong> — 380+ avaliações no Google</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feature-item fade-in">
+      <span class="feature-emoji">🌿</span>
+      <h3>Ingredientes Locais</h3>
+      <p>Produtos frescos de produtores da região, direto da horta para a mesa.</p>
+    </div>
+    <div class="feature-item fade-in">
+      <span class="feature-emoji">👨‍🍳</span>
+      <h3>Chef Premiado</h3>
+      <p>Cozinha autoral com técnicas clássicas e influências contemporâneas.</p>
+    </div>
+    <div class="feature-item fade-in">
+      <span class="feature-emoji">🍷</span>
+      <h3>Carta de Vinhos</h3>
+      <p>Seleção curada com mais de 80 rótulos nacionais e importados.</p>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <section class="menu-section" id="cardapio">
+    <div class="menu-header">
+      <div class="section-tag">Nosso Cardápio</div>
+      <h2>Sabores que encantam</h2>
+    </div>
+    <div class="menu-tabs">
+      <button class="menu-tab active">Entradas</button>
+      <button class="menu-tab">Pratos Principais</button>
+      <button class="menu-tab">Sobremesas</button>
+      <button class="menu-tab">Drinks</button>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-item fade-in">
+        <div>
+          <div class="menu-item-name">Bruschetta de Tomate Confit</div>
+          <div class="menu-item-desc">Tomates assados lentamente, manjericão fresco e azeite trufado</div>
+        </div>
+        <div class="menu-item-price">R$ 32</div>
+      </div>
+      <div class="menu-item fade-in">
+        <div>
+          <div class="menu-item-name">Carpaccio de Angus</div>
+          <div class="menu-item-desc">Lâminas de angus com rúcula, parmesão e molho de mostarda dijon</div>
+        </div>
+        <div class="menu-item-price">R$ 48</div>
+      </div>
+      <div class="menu-item fade-in">
+        <div>
+          <div class="menu-item-name">Burrata com Prosciutto</div>
+          <div class="menu-item-desc">Burrata fresca, presunto de parma, redução de balsâmico e nozes</div>
+        </div>
+        <div class="menu-item-price">R$ 56</div>
+      </div>
+      <div class="menu-item fade-in">
+        <div>
+          <div class="menu-item-name">Ceviche de Peixe Branco</div>
+          <div class="menu-item-desc">Peixe marinado em limão siciliano, cebola roxa e leite de tigre</div>
+        </div>
+        <div class="menu-item-price">R$ 44</div>
+      </div>
+      <div class="menu-item fade-in">
+        <div>
+          <div class="menu-item-name">Tábua de Queijos Artesanais</div>
+          <div class="menu-item-desc">Seleção de queijos mineiros com geleias da casa e castanhas</div>
+        </div>
+        <div class="menu-item-price">R$ 68</div>
+      </div>
+      <div class="menu-item fade-in">
+        <div>
+          <div class="menu-item-name">Tartar de Salmão</div>
+          <div class="menu-item-desc">Salmão fresco picado com abacate, gengibre e chips de wonton</div>
+        </div>
+        <div class="menu-item-price">R$ 52</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="sobre">
+    <div class="about-inner">
+      <div class="about-image-wrap fade-in"></div>
+      <div class="about-content">
+        <div class="section-tag">Nossa História</div>
+        <h2>Nascido do amor pela <em>boa mesa</em></h2>
+        <p>Desde 2018, o Oliva Bistrô é o ponto de encontro de quem busca uma experiência gastronômica verdadeira. Cada prato é pensado para contar uma história através dos sabores.</p>
+        <p>Trabalhamos exclusivamente com produtores locais, valorizando o que a terra oferece de melhor em cada estação.</p>
+        <div class="about-detail">
+          <div class="about-detail-item">
+            <span>7</span>
+            <p>Anos de História</p>
+          </div>
+          <div class="about-detail-item">
+            <span>12k+</span>
+            <p>Clientes por Ano</p>
+          </div>
+          <div class="about-detail-item">
+            <span>4.9</span>
+            <p>Nota no Google</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section" id="galeria">
+    <div class="gallery-header">
+      <div class="section-tag">Galeria</div>
+      <h2>Momentos no Oliva</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item fade-in"><span class="gallery-item-label">Ambiente</span></div>
+      <div class="gallery-item fade-in"><span class="gallery-item-label">Pratos</span></div>
+      <div class="gallery-item fade-in"><span class="gallery-item-label">Cozinha</span></div>
+      <div class="gallery-item fade-in"><span class="gallery-item-label">Drinks</span></div>
+      <div class="gallery-item fade-in"><span class="gallery-item-label">Eventos</span></div>
+    </div>
+  </section>
+
+  <!-- RESERVATION -->
+  <section class="reservation-section" id="reservas">
+    <div class="reservation-inner">
+      <div class="section-tag">Reservas</div>
+      <h2>Reserve sua <em>experiência</em></h2>
+      <p>Garanta sua mesa para uma noite inesquecível. Para grupos acima de 8 pessoas, entre em contato pelo WhatsApp.</p>
+      <div class="reservation-form">
+        <input type="text" placeholder="Seu nome">
+        <input type="tel" placeholder="Telefone">
+        <input type="date">
+        <select>
+          <option>Número de pessoas</option>
+          <option>2 pessoas</option>
+          <option>4 pessoas</option>
+          <option>6 pessoas</option>
+          <option>8 pessoas</option>
+        </select>
+      </div>
+      <button class="reservation-submit">Confirmar Reserva</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand"><em>Oliva</em> Bistrô</div>
+          <p class="footer-brand-desc">Cozinha autoral que celebra ingredientes locais e o prazer de uma boa refeição.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Funcionamento</h4>
+          <ul>
+            <li><a href="#">Ter–Qui: 18h–23h</a></li>
+            <li><a href="#">Sex–Sáb: 18h–00h</a></li>
+            <li><a href="#">Dom: 12h–16h</a></li>
+            <li><a href="#">Seg: Fechado</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="#">(16) 99876-5432</a></li>
+            <li><a href="#"><span class="__cf_email__" data-cfemail="106275637562667163507f7c7966713e737f7d3e7262">[email&#160;protected]</span></a></li>
+            <li><a href="#">@olivabistro</a></li>
+            <li><a href="#">Rua Exemplo, 456</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Oliva Bistrô. Todos os direitos reservados.</span>
+        <span>Feito com ❤️ e bons ingredientes</span>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Menu tabs interaction
+    document.querySelectorAll('.menu-tab').forEach(tab => {
+      tab.addEv
